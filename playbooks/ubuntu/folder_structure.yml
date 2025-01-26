@@ -1,0 +1,48 @@
+---
+- name: Remote folder structure
+  hosts: all
+  remote_user: ubuntu
+  become: true
+  tasks:
+    # Ensure the parent directory /home/ubuntu/cloud-1 exists
+    - name: Create parent directory on remote host
+      file:
+        path: /home/ubuntu/cloud-1
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        recurse: yes
+
+    # Copy the Inception-42 directory if needed
+    - name: Copy Inception-42 to remote host
+      copy:
+        src: ../../Inception-42
+        dest: /home/ubuntu/cloud-1
+
+    # Ensure the 'data' directory exists
+    - name: Create data directory on remote host
+      file:
+        path: /home/ubuntu/cloud-1/data
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+        recurse: yes
+
+    # Create WordPress data directory
+    - name: Create WordPress data directory
+      file:
+        path: /home/ubuntu/cloud-1/data/wordpress
+        state: directory
+        mode: '0777'
+        owner: ubuntu
+        group: ubuntu
+
+    # Create MariaDB data directory
+    - name: Create MariaDB data directory
+      file:
+        path: /home/ubuntu/cloud-1/data/mariadb
+        state: directory
+        mode: '0777'
+        owner: ubuntu
+        group: ubuntu

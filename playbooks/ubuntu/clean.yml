@@ -1,0 +1,21 @@
+---
+- name: Remove and clean in remote host
+  hosts: all
+  remote_user: arakhurs
+  become: true
+  tasks:
+    - name: Run make fclean
+      become_user: arakhurs
+      command: make fclean
+      args:
+        chdir: /home/arakhurs/cloud-1
+    - name: Remove cloud-1 directory
+      become: true
+      file:
+        path: /home/arakhurs/cloud-1
+        state: absent
+    - name: Remove data directory
+      become: true
+      file:
+        path: /home/arakhurs/cloud-1/data
+        state: absent

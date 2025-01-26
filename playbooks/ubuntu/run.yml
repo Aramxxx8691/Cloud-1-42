@@ -1,0 +1,17 @@
+---
+- name: Run services in remote host
+  hosts: all
+  remote_user: ubuntu
+  become: true
+  tasks:
+    - name: Install required dependencies
+      apt:
+        name:
+          - python3
+        state: present
+        update_cache: yes
+
+    - name: Run make all
+      command: make all
+      args:
+        chdir: /home/ubuntu/cloud-1/Inception-42
