@@ -1,12 +1,22 @@
 ---
 - name: Setup YC Instance
-  import_playbook: ./playbooks/ubuntu/setup.yml
+  hosts: all
+  become: true
+  roles:
+    - setup
   tags: setup
 
 - name: Remote folder structure
-  import_playbook: ./playbooks/ubuntu/folder_structure.yml
+  hosts: all
+  become: true
+  roles:
+    - folder_structure
   tags: folder_structure
 
-- name: Run services in remote host
-  import_playbook: ./playbooks/ubuntu/run.yml
+- name: Run services on remote host
+  hosts: all
+  become: true
+  roles:
+    - run_services
   tags: run
+

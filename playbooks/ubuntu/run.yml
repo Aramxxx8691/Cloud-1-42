@@ -1,7 +1,7 @@
 ---
 - name: Run services in remote host
   hosts: all
-  remote_user: ubuntu
+  remote_user: "{{ ansible_user }}"
   become: true
   tasks:
     - name: Install required dependencies
@@ -14,4 +14,5 @@
     - name: Run make all
       command: make all
       args:
-        chdir: /home/ubuntu/cloud-1/Inception-42
+        chdir: /home/{{ ansible_user }}/cloud-1/Inception-42
+

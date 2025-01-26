@@ -1,0 +1,22 @@
+---
+# tasks file for roles/run_services
+- name: Install required dependencies for Ubuntu/Debian
+  apt:
+    name:
+      - python3
+    state: present
+    update_cache: yes
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install required dependencies for RedHat
+  yum:
+    name:
+      - python3
+    state: present
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Run make all
+  command: make all
+  args:
+    chdir: /home/{{ ansible_user }}/cloud-1/Inception-42
+

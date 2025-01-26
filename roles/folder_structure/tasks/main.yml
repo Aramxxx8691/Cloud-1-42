@@ -1,0 +1,40 @@
+---
+# tasks file for roles/folder_structure
+- name: Create parent directory on remote host
+  file:
+    path: /home/{{ ansible_user }}/cloud-1
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    recurse: yes
+
+- name: Copy Inception-42 to remote host
+  copy:
+    src: ../../Inception-42
+    dest: /home/{{ ansible_user }}/cloud-1
+
+- name: Create data directory on remote host
+  file:
+    path: /home/{{ ansible_user }}/cloud-1/data
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+    recurse: yes
+
+- name: Create WordPress data directory
+  file:
+    path: /home/{{ ansible_user }}/cloud-1/data/wordpress
+    state: directory
+    mode: '0777'
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Create MariaDB data directory
+  file:
+    path: /home/{{ ansible_user }}/cloud-1/data/mariadb
+    state: directory
+    mode: '0777'
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+

@@ -1,7 +1,7 @@
 ---
-- name: Setup EC2 Instance
+- name: Setup GC Instance
   hosts: all
-  remote_user: ubuntu
+  remote_user: "{{ ansible_user }}"
   become: true
   tasks:
     - name: Install dependencies
@@ -54,8 +54,8 @@
         state: started
         enabled: true
 
-    - name: Add ubuntu to Docker group
-      command: usermod -aG docker ubuntu
+    - name: Add the user to Docker group
+      command: usermod -aG docker "{{ ansible_user }}"
 
     - name: Restart the Docker service to ensure permissions
       service:
